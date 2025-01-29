@@ -57,13 +57,17 @@
             flex-direction: column;
         }
 
-        header {
+       header {
             background-color: #003366;
-            color: #fff;
+            color: #ffd700; /* Gelb */
             padding: 20px;
             text-align: center;
             font-size: 1.5rem;
-            transition: background-color 0.3s;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            transition: background-color 0.3s, color 0.3s;
         }
 
         body.dark-mode header {
@@ -72,7 +76,7 @@
 
         main {
             display: flex;
-            flex-direction: column; /* Geändert zu column */
+            flex-direction: column;
             gap: 20px;
             padding: 20px;
             flex-grow: 1;
@@ -82,43 +86,58 @@
         .menu-container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between; /* Gleichmäßige Verteilung */
-            gap: 20px; /* Abstand zwischen den Karten */
+            justify-content: space-between;
+            gap: 20px;
         }
 
-        .menu-item {
-            padding: 20px;
-            background-color: #003366; /* Dunkelblau */
-            color: white;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            font-weight: bold;
-            transition: transform 0.2s ease, background-color 0.3s ease;
-            width: calc(33.33% - 20px/3*2); /* Drei Karten nebeneinander mit Abstand */
-            box-sizing: border-box; /* Innenabstand berücksichtigen */
-            text-align: center; /* Schrift zentriert */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+         .menu-item {
+    padding: 10px;
+    background-color: #003366;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s;
+    width: calc(25% - 10px);
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 4px solid #002244;
+   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+}
+/* 3D Effekt für alle Buttons */
+           .button, .module, #chatbot-toggle, #send-btn, .modal-close, .menu-item, a.button-link {
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+            border-bottom: 4px solid #002244;
+            transition: transform 0.2s ease, box-shadow 0.3s;
         }
+
+           .button:hover, .module:hover, #chatbot-toggle:hover, #send-btn:hover, .modal-close:hover, .menu-item:hover, a.button-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+        }
+
 
         .menu-item:hover {
-            background-color: #0055a5; /* Hellblau beim Hover */
-            transform: scale(1.05); /* Leichte Vergrößerung beim Hover */
+            background-color: #0055a5;
+            transform: scale(1.05);
         }
 
         /* Media Queries für kleinere Bildschirme */
         @media (max-width: 768px) {
             .menu-item {
-                width: calc(50% - 20px/2*1); /* Zwei Karten bei mittleren Bildschirmen */
+                width: calc(50% - 20px/2*1);
             }
         }
 
         @media (max-width: 480px) {
             .menu-item {
-                width: 100%; /* Eine Karte bei kleinen Bildschirmen */
+                width: 100%;
             }
         }
 
@@ -127,7 +146,7 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Zentriert den Inhalt */
+            align-items: center;
             width: 100%;
         }
 
@@ -182,32 +201,32 @@
 
         /* Buttons */
         .button {
-            width: 80%; /* Größere Buttons für bessere Sichtbarkeit */
-            max-width: 400px; /* Maximale Breite für große Bildschirme */
-            padding: 20px; /* Mehr Polsterung für bessere Klickbarkeit */
-            font-size: 1.2rem; /* Größere Schriftgröße für bessere Lesbarkeit */
+            width: 90%;
+            max-width: 550px;
+            padding: 20px;
+            font-size: 1.2rem;
             font-weight: bold;
             border: none;
-            background-color: #003366; /* Dunkelblauer Hintergrund */
+            background-color: #003366;
             color: white;
-            border-radius: 10px; /* Abgerundete Ecken */
+            border-radius: 10px;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
             text-align: center;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            margin: 10px auto; /* Zentrierung der Buttons */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Schatten für Tiefeneffekt */
+            margin: 10px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .button:hover {
-            background-color: #0055a5; /* Hellblauer Hover-Effekt */
-            transform: scale(1.1); /* Vergrößerung bei Hover */
+            background-color: #0055a5;
+            transform: scale(1.1);
         }
 
         .button i {
-            font-size: 1rem; /* Größere Icons für größere Buttons */
+            font-size: 1rem;
         }
 
         /* Iframes */
@@ -323,6 +342,10 @@
             max-height: 80vh;
         }
 
+        body.dark-mode .modal {
+            background-color: #301934;
+        }
+
         .modal.active {
             display: block;
         }
@@ -342,17 +365,116 @@
         .modal-overlay.active {
             display: block;
         }
-  .supplement-info img {
+
+        .supplement-info img {
             max-width: 100%;
             height: auto;
             margin-top: 10px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background-color: #002244;
+        }
+
+       .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Seitenverhältnis */
+            padding-top: 30px;
+            height: 0;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .video-container iframe,  
+        .video-container object,  
+        .video-container embed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Module für STRESUL und ARBORUL MPU */
+        .module {
+            background-color: rgba(0, 0, 50, 0.8);
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            text-align: center;
+            color: #FFD700; /* Dunkelgelbe Schrift */
+           display: flex; /* Flexbox für Zentrierung */
+            justify-content: center; /* Horizontal zentrieren */
+            align-items: center; /* Vertikal zentrieren */
+            cursor: pointer;
+            transition: transform 0.2s;
+           width: 200px; /* Optional: Feste Breite */
+           height: 60px; /* Macht die Buttons länger */
+    }
+
+        .module:hover {
+            transform: scale(1.1);
+        }
+
+        .module-bottom-left {
+            position: fixed;
+            bottom: 50px;
+            left: 20px;
+        }
+
+        .module-bottom-right {
+            position: fixed;
+            bottom: 50px;
+            right: 20px;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            main {
+                flex-direction: column;
+            }
+
+            .menu-container {
+                width: 100%;
+            }
+
+            .content-container {
+                padding: 10px;
+                align-items: stretch;
+            }
+
+            .description {
+                width: 100%;
+            }
+
+            .button-container {
+                max-width: 100%;
+            }
+
+            iframe {
+                height: 300px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <header>MPU PLATFORM ULTRA</header>
+    <header>MPU PLATTFORM ULTRA</header>
     <button class="dark-mode-toggle" onclick="toggleDarkMode()">Dark Mode</button>
 
     <div id="chatbot-widget">
@@ -379,7 +501,27 @@
                 <div class="menu-item" onclick="openModal('frageboegen')">MPU-FRAGEBÖGEN</div>
                 <div class="menu-item" onclick="openModal('ki-assistent')">KI ASSISTENT</div>
            </div>
+                 <!-- Module für STRESUL und ARBORUL MPU -->
+            <div class="module module-bottom-left" onclick="openModal('stresul')">STRESS</div>
+            <div class="module module-bottom-right" onclick="openModal('arborul-mpu')">ENTSCHEIDUNGSBAUM</div>
 
+            <div class="content-container">
+                <div class="description" id="stresul-description">
+                    <h3>Modul STRESS</h3>
+                    <p>Hier kommt der Inhalt für das Modul STRESS...</p>
+                         </a>
+              <a href="https://chatgpt.com/g/g-675ae9d9e02c819197d84b01adf301ee-mpuassistent" target="_blank">
+              <img src="https://cdn.gamma.app/fhpleqvbjim2f32/generated-images/Bx81A5Ct9oOUsc7eE0UWu.jpg" alt="Alternativtext" style="width: 200px; height: auto;">
+               </a>
+             </div>
+                <div class="description" id="arborul-mpu-description">
+                    <h3>Modul ENTSCHEIDUNGSBAUM</h3>
+                    <p>Hier kommt der Inhalt für das Modul  ENTSCHEIDUNGSBAUM...</p>
+                  </a>
+              <a href="https://chatgpt.com/g/g-675ae9d9e02c819197d84b01adf301ee-mpuassistent" target="_blank">
+              <img src="https://cdn.gamma.app/fhpleqvbjim2f32/generated-images/Bx81A5Ct9oOUsc7eE0UWu.jpg" alt="Alternativtext" style="width: 200px; height: auto;">
+               </a>
+               </div>
             <div class="content-container">
                 <div class="description" id="ablauf-description">
                     <h3>ABLAUF DER MPU</h3>
@@ -417,8 +559,7 @@
                         <p><button class="button" onclick="window.open('https://zaha175.github.io/FARBENTEST2/', '_blank')">FARBENTEST2 <i class="fas fa-external-link-alt"></i></button></p>
                         <p><button class="button" onclick="window.open('https://zaha175.github.io/FARBENTEST3/', '_blank')">FARBENTEST3 <i class="fas fa-external-link-alt"></i></button></p>
                         <p>VERKEHRSITUATIONSTEST</p>
-                        <p><button class="button" onclick="window.open('https://zaha175.github.io/Verkehrssituationstext/', '_blank')">VERKEHRSITUATIONSTEST1 <i class="fas fa-external-link-alt"></i></button></p>
-                        <p><button class="button" onclick="window.open('https://zaha175.github.io/PUZZLEBILDAPP/', '_blank')">VERKEHRSITUATIONSTEST2 <i class="fas fa-external-link-alt"></i></button><p>
+                        <p><button class="button" onclick="window.open('https://zaha175.github.io/Verkehrssituationstext/', '_blank')">VERKEHRSITUATIONSTEST <i class="fas fa-external-link-alt"></i></button></p>
                         <p>MERHFACHSITUATIONSTESTS</p>
                         <p><button class="button" onclick="window.open('https://zaha175.github.io/MERHFACHSITUATIONSTEST/', '_blank')">MERHFACHSITUATIONSTEST1 <i class="fas fa-external-link-alt"></i></button></p>
                         <p><button class="button" onclick="window.open('https://zaha175.github.io/MEHRFACHSITUATIONSTEST1/', '_blank')">MERHFACHSITUATIONSTEST2 <i class="fas fa-external-link-alt"></i></button></p>
