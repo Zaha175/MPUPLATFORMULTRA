@@ -5,476 +5,541 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MPU Plattform</title>
-    <meta name="description" content="MPU Plattform zur Vorbereitung auf die Medizinisch-Psychologische Untersuchung. Mit Tests, Quiz, Rechner und KI-Assistent.">
-    <meta name="keywords" content="MPU, Medizinisch-Psychologische Untersuchung, Vorbereitung, Test, Quiz, Promillerechner, KI-Assistent">
+    <meta name="description"
+        content="MPU Plattform zur Vorbereitung auf die Medizinisch-Psychologische Untersuchung. Mit Tests, Quiz, Rechner und KI-Assistent.">
+    <meta name="keywords"
+        content="MPU, Medizinisch-Psychologische Untersuchung, Vorbereitung, Test, Quiz, Promillerechner, KI-Assistent">
     <meta name="robots" content="index, follow">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        /* Allgemeine Stile */
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            color: #333;
-            transition: background-color 0.3s, color 0.3s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            position: relative;
-        }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* Allgemeine Stile */
+    body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        color: #333;
+        transition: background-color 0.3s, color 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        position: relative;
+    }
 
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('https://cdn.gamma.app/fhpleqvbjim2f32/generated-images/m5jbKxn54d6Q01a4tMJgN.jpg');
+        background-size: cover;
+        background-position: center;
+        z-index: -1;
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    body.dark-mode {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+
+    body.dark-mode::before {
+        opacity: 0.3;
+    }
+
+    /* Container für die gesamte Seite */
+    .container {
+        width: 90%;
+        max-width: 1400px;
+        margin: 0 auto;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    header {
+      background-color: #003366;
+      color: #ffd700;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+      transition: background-color 0.3s, color 0.3s;
+      position: relative;
+    
+    }
+
+    body.dark-mode header {
+        background-color: #1a1a1a;
+        /*muss definiert bleiben*/
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        flex-grow: 1;
+    }
+
+    /* Zentrierte Karten mit Hover-Effekten */
+    .menu-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .menu-item {
+        padding: 10px;
+        background-color: #003366;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: bold;
+        text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+        transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s;
+        width: calc(25% - 10px);
+        box-sizing: border-box;
+        text-align: center;
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 4px solid #002244;
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* 3D Effekt für alle Buttons */
+    .button,
+    .module,
+    #chatbot-toggle,
+    #send-btn,
+    .modal-close,
+    .menu-item,
+    a.button-link {
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+        border-bottom: 4px solid #002244;
+        transition: transform 0.2s ease, box-shadow 0.3s;
+    }
+
+    .button:hover,
+    .module:hover,
+    #chatbot-toggle:hover,
+    #send-btn:hover,
+    .modal-close:hover,
+    .menu-item:hover,
+    a.button-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+    }
+
+
+    .menu-item:hover {
+        background-color: #0055a5;
+        transform: scale(1.05);
+    }
+
+    /* Media Queries für kleinere Bildschirme */
+    @media (max-width: 768px) {
+        .menu-item {
+            width: calc(50% - 20px / 2 * 1);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .menu-item {
             width: 100%;
-            height: 100%;
-            background-image: url('https://cdn.gamma.app/fhpleqvbjim2f32/generated-images/m5jbKxn54d6Q01a4tMJgN.jpg');
-            background-size: cover;
-            background-position: center;
-            z-index: -1;
-            opacity: 1;
-            transition: opacity 0.3s ease-in-out;
         }
+    }
 
-        body.dark-mode {
-            background-color: #121212;
-            color: #e0e0e0;
-        }
+    /* Inhaltscontainer */
+    .content-container {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
 
-        body.dark-mode::before {
-            opacity: 0.3;
-        }
+    .description {
+        background-color: #ffffcc;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        display: none;
+        width: 100%;
+        max-width: 800px;
+        box-sizing: border-box;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
 
-        /* Container für die gesamte Seite */
-        .container {
-            width: 90%;
-            max-width: 1400px;
-            margin: 0 auto;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
+    body.dark-mode .description {
+        background: #1e1e1e;
+        border-color: #444;
+        color: #e0e0e0;
+    }
 
-       header {
-            background-color: #003366;
-            color: #ffd700; /* Gelb */
-            padding: 20px;
-            text-align: center;
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-            transition: background-color 0.3s, color 0.3s;
-        }
+    .description.active {
+        display: block;
+    }
 
-        body.dark-mode header {
-            background-color: #1a1a1a;
-        }
+    /* Dark-Mode-Toggle */
+    .dark-mode-toggle {
+        position: absolute;
+        /* Geändert */
+        top: 10px;
+        right: 10px;
+        background-color: #343a40;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        text-transform: uppercase;
+        z-index: 11;
+        /*Über den Header*/
+    }
 
-        main {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            padding: 20px;
-            flex-grow: 1;
-        }
+    body.dark-mode .dark-mode-toggle {
+        background-color: #1a1a1a;
+    }
 
-        /* Zentrierte Karten mit Hover-Effekten */
-        .menu-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 20px;
-        }
+    .dark-mode-toggle:hover {
+        background-color: #23272b;
+        color: #FFD700;
+        transform: scale(1.1);
+    }
 
-         .menu-item {
-    padding: 10px;
-    background-color: #003366;
-    color: white;
+    /* Buttons */
+    .button {
+        width: 90%;
+        max-width: 550px;
+        padding: 20px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        border: none;
+        background-color: #003366;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        text-align: center;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .button:hover {
+        background-color: #0055a5;
+        transform: scale(1.1);
+    }
+
+    .button i {
+        font-size: 1rem;
+    }
+
+    /* Iframes */
+    iframe {
+        width: 100%;
+        height: 400px;
+        max-width: 800px;
+        margin-bottom: 20px;
+        border: none;
+        overflow: hidden;
+    }
+
+    /* Chatbot Widget */
+    #chatbot-widget {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+    }
+
+    #chatbot-toggle {
+        background-color: #003366;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        font-size: 14px;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    #chatbot-toggle:hover {
+        background-color: #002244;
+        transform: scale(1.1);
+    }
+
+    #chatbot-container {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 350px;
+        height: 500px;
+        position: fixed;
+        bottom: 70px;
+        right: 20px;
+        z-index: 9999;
+        overflow: hidden;
+    }
+
+    #chatbot-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 10px;
+    }
+
+    #chat-response {
+        width: 100%;
+        height: 300px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+        background: #fff;
+        color: #333;
+    }
+
+    #chat-input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    #send-btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #003366;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    #send-btn:hover {
+        background-color: #002244;
+    }
+
+ .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;        /* Breiter gemacht */
+    max-width: 1000px; /* Maximale Breite auf 1200px erhöht */
+    background-color: #ffffe0;
     border-radius: 10px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
-    transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s;
-    width: calc(25% - 10px);
-    box-sizing: border-box;
-    text-align: center;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 4px solid #002244;
-   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: none;
+    padding: 10px;     /* Mehr Innenabstand für den Inhalt */
+    overflow-y: auto;
+    max-height: 90vh;  /* Höher gemacht (90% der Bildschirmhöhe) */
 }
-/* 3D Effekt für alle Buttons */
-           .button, .module, #chatbot-toggle, #send-btn, .modal-close, .menu-item, a.button-link {
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
-            border-bottom: 4px solid #002244;
-            transition: transform 0.2s ease, box-shadow 0.3s;
-        }
 
-           .button:hover, .module:hover, #chatbot-toggle:hover, #send-btn:hover, .modal-close:hover, .menu-item:hover, a.button-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
-        }
+    body.dark-mode .modal {
+        background-color: #301934;
+    }
 
+    .modal.active {
+        display: block;
+    }
 
-        .menu-item:hover {
-            background-color: #0055a5;
-            transform: scale(1.05);
-        }
+    /* Hintergrund-Overlay für Modals */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        display: none;
+    }
 
-        /* Media Queries für kleinere Bildschirme */
-        @media (max-width: 768px) {
-            .menu-item {
-                width: calc(50% - 20px/2*1);
-            }
-        }
+    .modal-overlay.active {
+        display: block;
+    }
 
-        @media (max-width: 480px) {
-            .menu-item {
-                width: 100%;
-            }
-        }
+    .supplement-info img {
+        max-width: 100%;
+        height: auto;
+        margin-top: 10px;
+    }
 
-        /* Inhaltscontainer */
-        .content-container {
-            flex-grow: 1;
-            display: flex;
+    .modal-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+        background-color: #003366;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .modal-close:hover {
+        background-color: #002244;
+    }
+
+    .video-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        /* 16:9 Seitenverhältnis */
+        padding-top: 30px;
+        height: 0;
+        overflow: hidden;
+        margin-bottom: 15px;
+    }
+
+    .video-container iframe,
+    .video-container object,
+    .video-container embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Module für STRESUL und ARBORUL MPU */
+    .module {
+        background-color: rgba(0, 0, 50, 0.8);
+        padding: 10px 20px;
+        margin: 10px;
+        border-radius: 5px;
+        text-align: center;
+        color: #FFD700;
+        /* Dunkelgelbe Schrift */
+        display: flex;
+        /* Flexbox für Zentrierung */
+        justify-content: center;
+        /* Horizontal zentrieren */
+        align-items: center;
+        /* Vertikal zentrieren */
+        cursor: pointer;
+        transition: transform 0.2s;
+        width: 200px;
+        /* Optional: Feste Breite */
+        height: 60px;
+        /* Macht die Buttons länger */
+    }
+
+    .module:hover {
+        transform: scale(1.1);
+    }
+
+    .module-bottom-left {
+        position: fixed;
+        bottom: 50px;
+        left: 20px;
+    }
+
+    .module-bottom-right {
+        position: fixed;
+        bottom: 50px;
+        right: 20px;
+    }
+
+    /* Media Queries */
+    @media (max-width: 768px) {
+        main {
             flex-direction: column;
-            align-items: center;
+        }
+
+        .menu-container {
             width: 100%;
+        }
+
+        .content-container {
+            padding: 10px;
+            align-items: stretch;
         }
 
         .description {
-            background-color: #ffffcc;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            display: none;
             width: 100%;
-            max-width: 800px;
-            box-sizing: border-box;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
 
-        body.dark-mode .description {
-            background: #1e1e1e;
-            border-color: #444;
-            color: #e0e0e0;
-        }
-
-        .description.active {
-            display: block;
-        }
-
-        /* Dark-Mode-Toggle */
-        .dark-mode-toggle {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background-color: #343a40;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            text-transform: uppercase;
-        }
-
-        body.dark-mode .dark-mode-toggle {
-            background-color: #1a1a1a;
-        }
-
-        .dark-mode-toggle:hover {
-            background-color: #23272b;
-            color: #FFD700;
-            transform: scale(1.1);
-        }
-
-        /* Buttons */
-        .button {
-            width: 90%;
-            max-width: 550px;
-            padding: 20px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border: none;
-            background-color: #003366;
-            color: white;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            text-align: center;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin: 10px auto;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .button:hover {
-            background-color: #0055a5;
-            transform: scale(1.1);
-        }
-
-        .button i {
-            font-size: 1rem;
-        }
-
-        /* Iframes */
-        iframe {
-            width: 100%;
-            height: 400px;
-            max-width: 800px;
-            margin-bottom: 20px;
-            border: none;
-            overflow: hidden;
-        }
-
-        /* Chatbot Widget */
-        #chatbot-widget {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-        }
-
-        #chatbot-toggle {
-            background-color: #003366;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            font-size: 14px;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-
-        #chatbot-toggle:hover {
-            background-color: #002244;
-            transform: scale(1.1);
-        }
-
-        #chatbot-container {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 350px;
-            height: 500px;
-            position: fixed;
-            bottom: 70px;
-            right: 20px;
-            z-index: 9999;
-            overflow: hidden;
-        }
-
-        #chatbot-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 10px;
-        }
-
-        #chat-response {
-            width: 100%;
-            height: 300px;
-            overflow-y: auto;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 10px;
-            background: #fff;
-            color: #333;
-        }
-
-        #chat-input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        #send-btn {
-            width: 100%;
-            padding: 10px;
-            background-color: #003366;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        #send-btn:hover {
-            background-color: #002244;
-        }
-
-        /* Modal-Fenster */
-        .modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 800px;
-            background-color: #ffffe0;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            display: none;
-            padding: 20px;
-            overflow-y: auto;
-            max-height: 80vh;
-        }
-
-        body.dark-mode .modal {
-            background-color: #301934;
-        }
-
-        .modal.active {
-            display: block;
-        }
-
-        /* Hintergrund-Overlay für Modals */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-            display: none;
-        }
-
-        .modal-overlay.active {
-            display: block;
-        }
-
-        .supplement-info img {
+        .button-container {
             max-width: 100%;
-            height: auto;
-            margin-top: 10px;
         }
 
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 5px 10px;
-            background-color: #003366;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
+        iframe {
+            height: 300px;
         }
-
-        .modal-close:hover {
-            background-color: #002244;
-        }
-
-       .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Seitenverhältnis */
-            padding-top: 30px;
-            height: 0;
-            overflow: hidden;
-            margin-bottom: 15px;
-        }
-
-        .video-container iframe,  
-        .video-container object,  
-        .video-container embed {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Module für STRESUL und ARBORUL MPU */
-        .module {
-            background-color: rgba(0, 0, 50, 0.8);
-            padding: 10px 20px;
-            margin: 10px;
-            border-radius: 5px;
-            text-align: center;
-            color: #FFD700; /* Dunkelgelbe Schrift */
-           display: flex; /* Flexbox für Zentrierung */
-            justify-content: center; /* Horizontal zentrieren */
-            align-items: center; /* Vertikal zentrieren */
-            cursor: pointer;
-            transition: transform 0.2s;
-           width: 200px; /* Optional: Feste Breite */
-           height: 60px; /* Macht die Buttons länger */
     }
 
-        .module:hover {
-            transform: scale(1.1);
+     .top-bar {
+            z-index: 10;
         }
 
-        .module-bottom-left {
-            position: fixed;
-            bottom: 50px;
-            left: 20px;
-        }
+.button-small {
+    padding: 5px 10px;      /* Kleinere Innenabstände */
+    font-size: 0.8rem;      /* Kleinere Schriftgröße */
+    width: auto;            /* Automatische Breite (statt 90% oder max-width) */
+    margin: 5px;            /* Geringerer Außenabstand */
+    border-radius: 5px;     /* Optional: Kleinere Ecken */
+}
 
-        .module-bottom-right {
-            position: fixed;
-            bottom: 50px;
-            right: 20px;
-        }
+#cube-container {
+  position: absolute;
+  top: 2px;
+  left: 20px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column; /* Wieder auf column setzen */
+  align-items: center;
+}
 
-        /* Media Queries */
-        @media (max-width: 768px) {
-            main {
-                flex-direction: column;
-            }
+#cube-container button {
+  margin-bottom: 0; /* Kein Abstand nach unten */
+  margin-top: 5px;  /* Abstand nach oben, damit der Button über dem Würfel erscheint */
+}
 
-            .menu-container {
-                width: 100%;
-            }
-
-            .content-container {
-                padding: 10px;
-                align-items: stretch;
-            }
-
-            .description {
-                width: 100%;
-            }
-
-            .button-container {
-                max-width: 100%;
-            }
-
-            iframe {
-                height: 300px;
-            }
-        }
-    </style>
+</style>
 </head>
 
 <body>
-
     <header>MPU PLATTFORM ULTRA</header>
+    
+  <!-- Würfel-Container oben links -->
+ <div id="cube-container">
+        <button class="button button-small" onclick="window.open('https://zaha175.github.io/BILDPUZZLEPLATFORM/', '_blank')">
+            CUB <i class="fas fa-external-link-alt"></i>
+        </button>
+        <iframe src="https://zaha175.github.io/BILDPUZZLEPLATFORM/" style="width: 145px; height: 80px; border: none;"></iframe>
+    </div>
+
     <button class="dark-mode-toggle" onclick="toggleDarkMode()">Dark Mode</button>
 
     <div id="chatbot-widget">
@@ -601,13 +666,13 @@
                     <p><button class="button" onclick="window.open('https://zaha175.github.io/CONTROLLIERTES-TRINKEN/', '_blank')">MPU APP: FRAGEN UND ANTWORTEN <i class="fas fa-external-link-alt"></i></button></p>
                     <h3>ABSTINENZ</h3>
                     <p><button class="button" onclick="window.open('https://zaha175.github.io/FRAGENUNDANTWORTEN/', '_blank')">MPU APP: FRAGEN UND ANTWORTEN <i class="fas fa-external-link-alt"></i></button></p>
-                    <p>
+                   <p>
                     <button class="button" onclick="window.open('https://zaha175.github.io/VIDEOPANNELDEUTSCH/', '_blank')">MPU APP: FRAGEN UND ANTWORTEN ERKLÄRT <i class="fas fa-external-link-alt"></i></button>
                     <p>
-                    <iframe src="https://zaha175.github.io/VIDEOPANNELDEUTSCH/"></iframe>
+                   <iframe src="https://zaha175.github.io/VIDEOPANNELDEUTSCH/"></iframe>
                     <p>
-                    <p><button class="button" onclick="window.open('https://zaha175.github.io/FRAGUNDANTWERKL-RUNGEN/', '_blank')">MPU APP: FRAGEN UND ANTWORTEN ERKLÄRT <i class="fas fa-external-link-alt"></i></button></p>
-                </div>
+                  <p><button class="button" onclick="window.open('https://zaha175.github.io/FRAGUNDANTWERKL-RUNGEN/', '_blank')">MPU APP: FRAGEN UND ANTWORTEN ERKLÄRT <i class="fas fa-external-link-alt"></i></button></p>
+                 </div>
                 <div class="description" id="ki-assistent-description">
                     <h3>KI-ASSISTENT</h3>
                     <p>Der KI-Assistent ist bereit, dir bei allen MPU-Fragen zu helfen.</p>
@@ -661,10 +726,10 @@
                 </div>
                 <div class="description" id="header-description">
                     <h3>WILLKOMMEN BEI DER MPU PLATFORM</h3>
-                    <p>
-                    <iframe src="https://zaha175.github.io/BILDPUZZLEPLATFORM/"></iframe>
-                    <p>
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/ZATbbvXcvE8?si=VlF7WCt6Fu2XbSt-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                   <p>
+                  <iframe src="https://zaha175.github.io/BILDPUZZLEPLATFORM/"></iframe>
+                  <p>
+                 <iframe width="560" height="315" src="https://www.youtube.com/embed/ZATbbvXcvE8?si=VlF7WCt6Fu2XbSt-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                  <p>Klicke auf die Menüpunkte, um mehr zu erfahren.</p>
                 </div>
             </div>
